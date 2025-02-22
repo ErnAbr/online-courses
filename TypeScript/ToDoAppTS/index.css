@@ -1,0 +1,42 @@
+.container {
+  width: 1028px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.completed {
+  text-decoration: line-through;
+  color: grey;
+}
+
+li.completed button {
+  text-decoration: none !important;
+}
+
+h1 {
+  margin-bottom: 5px;
+}
+
+ul {
+  padding: 0;
+}
+
+li {
+  list-style: none;
+  gap: 15px;
+}
+
+.todo-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+ul > div {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
