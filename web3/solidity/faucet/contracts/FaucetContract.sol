@@ -13,6 +13,9 @@ contract Faucet {
 
     receive() external payable {}
 
+    // private -> can be accesible only within the smart contract
+    // internal -> can be accesible withing smart contract and also derived smart contract
+
     function addFunds() external payable {
         funders.push(msg.sender);
     }
