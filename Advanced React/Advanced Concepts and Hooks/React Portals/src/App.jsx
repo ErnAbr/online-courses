@@ -6,7 +6,10 @@ function App() {
   const [show, setShow] = useState(false);
 
   return (
-    <div onClick={() => console.log("outer div")}>
+    <div
+      onClickCapture={() => console.log("outer div")}
+      style={{ position: "absolute", marginTop: "200px" }}
+    >
       <h1>Other Content</h1>
       <button onClick={() => setShow(true)}>Show Message</button>
       <Alert show={show} onClose={() => setShow(false)}>
@@ -22,7 +25,13 @@ const Alert = ({ children, onClose, show }) => {
   if (!show) return;
 
   return createPortal(
-    <div className="alert" onClick={onClose}>
+    <div
+      className="alert"
+      onClick={() => {
+        onClose();
+        console.log("inner div");
+      }}
+    >
       {children}
     </div>,
     document.querySelector("#alert-holder")
