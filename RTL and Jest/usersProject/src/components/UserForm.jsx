@@ -6,8 +6,9 @@ export const UserForm = ({ onUserAdd }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     onUserAdd({ name, email });
+    setName("");
+    setEmail("");
   };
 
   return (
