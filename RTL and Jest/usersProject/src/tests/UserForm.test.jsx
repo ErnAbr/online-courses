@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { UserForm } from "../components/UserForm";
+import { vi } from "vitest";
 
 test("it shows two inputs and a button", () => {
   // render the component
@@ -14,16 +15,14 @@ test("it shows two inputs and a button", () => {
 });
 
 test("it calls onUserAdd when the form is submitted", async () => {
-  const argList = [];
-  const callback = (...args) => {
-    argList.push(args);
-  };
+  const mock = vi.fn();
 
   // Render the component
-  render(<UserForm onUserAdd={callback} />);
+  render(<UserForm onUserAdd={mock} />);
 
   // Find the two inputs
-  const [nameInput, emailInput] = screen.getAllByRole("textbox");
+  const nameInput = screen.getByRole("textbox", { name: /name/i });
+  const emailInput = screen.getByRole("textbox", { name: /email/i });
 
   // Simulate typing in a name
   await userEvent.type(nameInput, "jane");
@@ -38,6 +37,6 @@ test("it calls onUserAdd when the form is submitted", async () => {
   await userEvent.click(button);
 
   // Assertion to make sure 'onUserAdd' gets called with email/name
-  expect(argList).toHaveLength(1);
-  expect(argList[0][0]).toEqual({ name: "jane", email: "jane@gmail.com" });
+  expect(mock).toHaveBeenCalled();
+  expect(mock).toHaveBeenCalledWith({ name: "jane", email: "jane@gmail.com" });
 });

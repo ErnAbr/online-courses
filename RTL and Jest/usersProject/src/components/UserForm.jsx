@@ -13,20 +13,20 @@ export const UserForm = ({ onUserAdd }) => {
   return (
     <form onSubmit={handleSubmit}>
       <div>
-        <label htmlFor="userName">name</label>
+        <label htmlFor="name">name</label>
         <input
           value={name}
           onChange={(e) => setName(e.target.value)}
-          id="userName"
+          id="name"
           type="text"
         />
       </div>
       <div>
-        <label htmlFor="userEmail">email</label>
+        <label htmlFor="email">email</label>
         <input
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          id="userEmail"
+          id="email"
           type="email"
         />
       </div>
