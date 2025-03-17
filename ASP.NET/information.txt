@@ -1,0 +1,2 @@
+cli to init new project -> dotnet new webapi -n DotnetAPI
+to add swagger -> dotnet add package Swashbuckle.AspNetCore
