@@ -1,5 +1,5 @@
 {
     "[csharp]": {
-        "editor.defaultFormatter": "ms-dotnettools.csdevkit"
+        "editor.defaultFormatter": "ms-dotnettools.csharp"
     }
 }

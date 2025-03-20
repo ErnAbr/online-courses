@@ -1,2 +1,16 @@
+**basics**
 cli to init new project -> dotnet new webapi -n DotnetAPI
 to add swagger -> dotnet add package Swashbuckle.AspNetCore
+
+[Route("[controller]")] -> creates route based on controller class name without "controller"
+constructor inside the controller class should be public
+
+in Program.cs you need to builder AddControllers and AddSwaggerGen, then use app to UseSwagger and UserSwaggerUI also app.MapControllers
+
+chaining query params -> test?testValue="testValue"
+
+CORS settings are in program.cs <-boilerplate code
+
+setup a DB connection string in appsettings.json and add a config in the controller
+
+use IActionResult when you want to result a status code
