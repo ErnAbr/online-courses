@@ -14,3 +14,5 @@ CORS settings are in program.cs <-boilerplate code
 setup a DB connection string in appsettings.json and add a config in the controller
 
 use IActionResult when you want to result a status code
+
+beter to use namespace .Dto or .Data to improve performance of an app and not to put everything into one namespace
