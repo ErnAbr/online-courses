@@ -115,5 +115,85 @@ public class UserController : ControllerBase
 
         throw new Exception("Failed to Delete User");
     }
+
+    //UserJobInfo endpoints
+
+    [HttpGet("GetUserJobInfo")]
+    public IEnumerable<UserJobInfo> GetUserJobInfos()
+    {
+        string sql = @"SELECT [UserId],
+            [JobTitle],
+            [Department] 
+                FROM TutorialAppSchema.UserJobInfo";
+
+        IEnumerable<UserJobInfo> userJobInfo = _dapper.LoadData<UserJobInfo>(sql);
+
+        return userJobInfo;
+    }
+
+    [HttpGet("GetSingleUserJobInfo/{userId}")]
+    public UserJobInfo GetSingleUserJobInfo(int userId)
+    {
+        string sql = @"SELECT [UserId],
+            [JobTitle],
+            [Department] 
+                FROM TutorialAppSchema.UserJobInfo WHERE UserId = " + userId;
+
+        UserJobInfo singleUserJobInfo = _dapper.LoadDataSingle<UserJobInfo>(sql);
+
+        return singleUserJobInfo;
+    }
+
+    [HttpPut("EditUserJobInfo")]
+    public IActionResult EditUserJobInfo(UserJobInfo userJobInfo)
+    {
+        string sql = @"
+    UPDATE TutorialAppSchema.UserJobInfo
+        SET [JobTitle] = '" + userJobInfo.JobTitle +
+            "', [Department] = '" + userJobInfo.Department +
+        "'WHERE UserId = " + userJobInfo.UserId;
+
+        if (_dapper.ExecuteSql(sql))
+        {
+            return Ok();
+        }
+
+        throw new Exception("Failed to Update UserJobInfo");
+    }
+
+    [HttpPost("AddUserJobInfo")]
+    public IActionResult AddUserJobInfo(UserJobInfo userJobInfo)
+    {
+        string sql = @"INSERT INTO TutorialAppSchema.UserJobInfo (
+            UserId, JobTitle, Department
+        ) VALUES (" + userJobInfo.UserId +
+                ", '" + userJobInfo.JobTitle +
+                "', '" + userJobInfo.Department +
+            "')";
+
+        if (_dapper.ExecuteSql(sql))
+        {
+            return Ok();
+        }
+
+        throw new Exception("Failed to Add UserJobInfo");
+    }
+
+    [HttpDelete("DeleteUserJobInfo/{userId}")]
+    public IActionResult DeleteUserJobInfo(int userId)
+    {
+        string sql = @"
+        DELETE FROM TutorialAppSchema.UserJobInfo 
+            WHERE UserId = " + userId.ToString();
+
+        if (_dapper.ExecuteSql(sql))
+        {
+            return Ok();
+        }
+
+        throw new Exception("Failed to Delete UserJobInfo");
+    }
 }
+
+
 
