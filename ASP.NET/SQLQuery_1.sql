@@ -33,4 +33,4 @@ SELECT [UserId],
 [JobTitle],
 [Department] FROM TutorialAppSchema.UserJobInfo WHERE UserId = 2
 
-SELECT * FROM TutorialAppSchema.UserJobInfo ORDER BY UserId DESC
+SELECT * FROM TutorialAppSchema.UserSalary ORDER BY UserId DESC

@@ -137,7 +137,7 @@ public class UserController : ControllerBase
         string sql = @"SELECT [UserId],
             [JobTitle],
             [Department] 
-                FROM TutorialAppSchema.UserJobInfo WHERE UserId = " + userId;
+                FROM TutorialAppSchema.UserJobInfo WHERE UserId = " + userId.ToString();
 
         UserJobInfo singleUserJobInfo = _dapper.LoadDataSingle<UserJobInfo>(sql);
 

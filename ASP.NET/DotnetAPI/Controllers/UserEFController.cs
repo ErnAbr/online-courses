@@ -19,6 +19,7 @@ public class UserEFController : ControllerBase
         _mapper = new Mapper(new MapperConfiguration((cfg) =>
         {
             cfg.CreateMap<UserToAddDto, User>();
+            cfg.CreateMap<UserSalary, UserSalary>();
         }));
     }
 
@@ -97,6 +98,71 @@ public class UserEFController : ControllerBase
             }
         }
 
-        throw new Exception("Failed to Update User");
+        throw new Exception("Failed to Delete User");
+    }
+
+    //UserSalaryEF Endpoint
+
+    [HttpGet("GetUserSalary/{userId}")]
+    public UserSalary GetUserSalary(int userId)
+    {
+        UserSalary? userSalary = _entityFramework.UserSalary.FirstOrDefault(u => u.UserId == userId);
+
+        if (userSalary != null)
+        {
+            return userSalary;
+        }
+
+        throw new Exception("Failed to Get UserSalary");
+    }
+
+    [HttpPut("EditUserSalary")]
+    public IActionResult EditUserSalary(UserSalary userSalaryToChange)
+    {
+        UserSalary? userSalaryDb = _entityFramework.UserSalary
+        .FirstOrDefault(u => u.UserId == userSalaryToChange.UserId);
+
+        if (userSalaryDb != null)
+        {
+            _mapper.Map(userSalaryToChange, userSalaryDb);
+            if (_entityFramework.SaveChanges() > 0)
+            {
+                return Ok();
+            }
+        }
+
+        throw new Exception("Failed to Update UserSalary");
+    }
+
+    [HttpPost("AddUserSalary")]
+    public IActionResult AddUserSalary(UserSalary userSalary)
+    {
+        UserSalary userDb = _mapper.Map<UserSalary>(userSalary);
+
+        _entityFramework.Add(userDb);
+        if (_entityFramework.SaveChanges() > 0)
+        {
+            return Ok();
+        }
+
+        throw new Exception("Failed to Add UserSalary");
+    }
+
+    [HttpDelete("DeleteUserSalary/{userId}")]
+    public IActionResult DeleteUserSalary(int userId)
+    {
+        UserSalary? userDb = _entityFramework.UserSalary
+            .FirstOrDefault(u => u.UserId == userId);
+
+        if (userDb != null)
+        {
+            _entityFramework.UserSalary.Remove(userDb);
+            if (_entityFramework.SaveChanges() > 0)
+            {
+                return Ok();
+            }
+        }
+
+        throw new Exception("Failed to Delete User");
     }
 }
