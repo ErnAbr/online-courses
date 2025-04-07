@@ -19,3 +19,19 @@ beter to use namespace .Dto or .Data to improve performance of an app and not to
 
 when setting up IRepository you need to make a connection in program.cs
 for example builder.Services.AddScoped<IUserRepository, UserRepository>();
+
+adding this to program.cs to make sure that server uses the same tokenKey:
+SymmetricSecurityKey tokenKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes
+    (builder.Configuration.GetSection("AppSettings:TokenKey").Value ?? ""));
+
+TokenValidationParameters tokenValidationParameters = new TokenValidationParameters()
+{
+    IssuerSigningKey = tokenKey,
+    ValidateIssuer = false,
+    ValidateIssuerSigningKey = false,
+    ValidateAudience = false
+};
+
+UseAuthentication should go before UseAuthorization
+app.UseAuthentication();
+app.UseAuthorization();
