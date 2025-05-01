@@ -62,3 +62,7 @@ INSERT INTO TutorialAppSchema.Posts(
 UPDATE TutorialAppSchema.Posts 
     SET UserId = 1002
     WHERE PostId = 1
+
+SELECT * FROM TutorialAppSchema.Posts 
+    WHERE PostTitle LIKE '%search%'
+        OR PostContent LIKE '%search%'
