@@ -1,3 +1,0 @@
-to run RTL Book run ->
-npx rtl-book serve roles-notes.js
-from the directory where the js file is located

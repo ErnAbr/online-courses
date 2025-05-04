@@ -1,0 +1,16 @@
+to run RTL Book run ->
+npx rtl-book serve roles-notes.js
+from the directory where the js file is located
+
+use findBy or findAllBy on async (useEffect) processes, like data fetching, it has integrated act function behind the scenes -> check RepositoriesListItem component test
+
+adding <MemoryRouter></MemoryRouter> around the component in testing helps with errors that appear due to react router dom library -> check RepositoriesListItem component test
+
+this can mock a part of a component which gives you error and returns a string as in this example:
+jest.mock("../tree/FileIcon", () => {
+  return () => {
+    return "File Icon Component";
+  };
+});
+
+the line await screen.findByRole("img", { name: "Javascript" }); in tests > check RepositoriesListItem component test, stops the component from rendering until it loads async data and updates the states
