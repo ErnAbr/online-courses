@@ -16,3 +16,5 @@ jest.mock("../tree/FileIcon", () => {
 the line await screen.findByRole("img", { name: "Javascript" }); in tests > check RepositoriesListItem component test, stops the component from rendering until it loads async data and updates the states
 
 use MSW library to mock network requests. Axios still sends the request, MSW intercepts the request and returns the mock response -> check HomeRoute.test.js
+
+use queryBy if you testing for an element not to be in the document
