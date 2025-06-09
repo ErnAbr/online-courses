@@ -1,0 +1,56 @@
+installing test network for Ethereum using Truffle,
+npm install -g truffle
+then: truffle init -> in the project folder
+install Ganache (found in Truffle documentation, Ganache a local blockchain for development)
+in Ganache add truffle-config.js file for the projects
+
+to migrate contracts into Ganache -> truffle migrate
+
+to migrate a smart contract:
+ 1) truffle compile -> in the project folder + truffle migrate
+
+use truffle console to access truffle console.
+next assign a variable to to contract call: const instance = await Faucet.deployed() than just write instance.
+P.S. public methods in contract automatically create getter functions
+continuing the example: const funds = await instance.funds() and funds.toString()
+
+web3.js: is a collection of libs that allow you to interact with a local or remote etherium node
+************
+truffle console <- opens console / your ganache blockchain should be running
+const instance = await Faucet.deployed() <- you get access to methods inside the contract (select contract which you want to use)
+
+instance.addFunds({from: accounts[0], value: "2000000000"})
+instance.addFunds({from: accounts[0], value: "2000000000000000000"})
+instance.addFunds({from: accounts[1], value: "2000000000"})
+instance.addFunds({from: accounts[1], value: "2000000000000000000"})
+
+instance.withdraw("500000000000000000", {from: accounts[1]})
+
+instance.getAllFunders()
+instance.getFounderAtIndex(0);
+************
+sending eth through console 
+web3.eth.sendTransaction({from: accounts[0], to: "0x3ee9fc095252FaCAA653302f4eF23B37d195Ea13", value: "10000000000000000000"})
+
+when you redeploy contract: truffle migrate --reset
+
+!!! when redeploying contract be sure to withdraw funds, because after redeployment old funds will be gone from the contract !!!
+
+sending eth using function signature:
+web3.eth.sendTransaction({from: accounts[0], to: "0x299854842F05B9Db789c51a4186d00db66E6677d", data: "0xa26759cb", value:"3000000000000000000" })
+
+!!! From the client side, you interact with smart contracts on the blockchain using JSON-RPC (Remote Procedure Call).
+for example this is JSON for making a transaction at a contract on a blockchain (development)
+{
+    "jsonrpc":"2.0",
+    "method":"eth_sendTransaction",
+    "params": [{
+        "from": "0xeE0C3572606cE59AfE8C6165c1a55DE9dc8d7D94",
+        "to": "0xA00e25a9Fe8e342BD183874EDd141c864603F93a",
+        "gas": "0x76c0", 
+        "gasPrice": "0x9184e72a000", 
+        "value": "0x8AC7230489E80000", 
+        "input":"0xa26759cb"
+    }],
+    "id":1
+}
