@@ -6,6 +6,14 @@ contract Faucet {
     mapping(address => bool) private funders;
     mapping(uint => address) private lutFunders;
 
+    modifier limitWithdraw(uint withdrawAmount) {
+        require(
+            withdrawAmount <= 100000000000000000, 
+                "Cannot withdraw more then 0.1 ETH"
+        );
+        _;
+    }
+
     //this is a special function
     //it's called when you make a tx that doesn't specify
     //function name to call
@@ -26,6 +34,10 @@ contract Faucet {
             funders[funder]= true;
             lutFunders[index] = funder;
         }
+    }
+
+    function withdraw (uint withdrawAmount) external limitWithdraw(withdrawAmount) {
+        payable(msg.sender).transfer(withdrawAmount);
     }
 
     function getAllFunders() external view returns(address[] memory) {
