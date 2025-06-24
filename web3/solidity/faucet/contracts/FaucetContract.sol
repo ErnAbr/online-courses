@@ -78,8 +78,8 @@ contract Faucet is Owned, Logger, IFaucet {
     }
 }
 //Block info
-//Nonce - a hash that when comibined with the minHash proofs that 
-//the block has gone through proof of owrk
+//Nonce - a hash that when combined with the minHash proofs that 
+//the block has gone through proof of work
 //8byts => 64bits
 
 //pure, view - read-only call, no gas fee

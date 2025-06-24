@@ -54,3 +54,9 @@ for example this is JSON for making a transaction at a contract on a blockchain 
     }],
     "id":1
 }
+
+to add Ganache to Metamask:
+1) add test (ganache) network to metamask (+ Add a Custom network)
+2) add accounts through private keys which are generated in ganache
+
+private key is used to sign transaction so it would not be hacked in the transaction process
