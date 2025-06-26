@@ -36,15 +36,15 @@
     "absolutePath": "project:/contracts/IFaucet.sol",
     "exportedSymbols": {
       "IFaucet": [
-        174
+        177
       ]
     },
-    "id": 175,
+    "id": 178,
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 165,
+        "id": 168,
         "literals": [
           "solidity",
           ">=",
@@ -63,9 +63,9 @@
         "contractDependencies": [],
         "contractKind": "interface",
         "fullyImplemented": false,
-        "id": 174,
+        "id": 177,
         "linearizedBaseContracts": [
-          174
+          177
         ],
         "name": "IFaucet",
         "nameLocation": "297:7:1",
@@ -73,7 +73,7 @@
         "nodes": [
           {
             "functionSelector": "a26759cb",
-            "id": 168,
+            "id": 171,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
@@ -81,18 +81,18 @@
             "nameLocation": "321:8:1",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 166,
+              "id": 169,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "329:2:1"
             },
             "returnParameters": {
-              "id": 167,
+              "id": 170,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "348:0:1"
             },
-            "scope": 174,
+            "scope": 177,
             "src": "312:37:1",
             "stateMutability": "payable",
             "virtual": false,
@@ -100,7 +100,7 @@
           },
           {
             "functionSelector": "2e1a7d4d",
-            "id": 173,
+            "id": 176,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
@@ -108,17 +108,17 @@
             "nameLocation": "364:8:1",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 171,
+              "id": 174,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 170,
+                  "id": 173,
                   "mutability": "mutable",
                   "name": "withdrawAmount",
                   "nameLocation": "378:14:1",
                   "nodeType": "VariableDeclaration",
-                  "scope": 173,
+                  "scope": 176,
                   "src": "373:19:1",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -127,7 +127,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 169,
+                    "id": 172,
                     "name": "uint",
                     "nodeType": "ElementaryTypeName",
                     "src": "373:4:1",
@@ -142,19 +142,19 @@
               "src": "372:21:1"
             },
             "returnParameters": {
-              "id": 172,
+              "id": 175,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "410:0:1"
             },
-            "scope": 174,
+            "scope": 177,
             "src": "355:56:1",
             "stateMutability": "payable",
             "virtual": false,
             "visibility": "external"
           }
         ],
-        "scope": 175,
+        "scope": 178,
         "src": "287:127:1",
         "usedErrors": []
       }
@@ -167,7 +167,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.16",
-  "updatedAt": "2025-06-12T18:29:20.257Z",
+  "updatedAt": "2025-06-25T18:34:15.582Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},

@@ -41,21 +41,12 @@ contract Faucet is Owned, Logger, IFaucet {
 
     function addFunds() override external payable {
         address funder = msg.sender;
-        test3();
 
         if (!funders[funder]) {
             uint index = numOfFounders++;
             funders[funder]= true;
             lutFunders[index] = funder;
         }
-    }
-
-    function test1() external onlyOwner {
-        //some managing stuff that only admin should have access to
-    }
-
-    function test2() external onlyOwner {
-        //some managing stuff that only admin should have access to
     }
 
     function withdraw (uint withdrawAmount) override external payable limitWithdraw(withdrawAmount) {
@@ -75,6 +66,14 @@ contract Faucet is Owned, Logger, IFaucet {
     function getFounderAtIndex(uint8 index) external view returns(address) {
         // address[] memory _funders = getAllFunders();
         return lutFunders[index];
+    }
+
+        function test1() external onlyOwner {
+        //some managing stuff that only admin should have access to
+    }
+
+    function test2() external onlyOwner {
+        //some managing stuff that only admin should have access to
     }
 }
 //Block info
