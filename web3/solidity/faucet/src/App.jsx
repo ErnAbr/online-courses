@@ -7,6 +7,7 @@ import { loadContract } from "./utils/loadContract";
 function App() {
   const [web3Api, setWeb3Api] = useState({
     provider: null,
+    isProviderLoaded: false,
     web3: null,
     contract: null,
   });
@@ -14,30 +15,36 @@ function App() {
   const [balance, setBalance] = useState(null);
   const [shouldReload, setShouldReload] = useState(false);
 
+  const canConnectToContract = account && web3Api.contract;
   const reloadEffect = () => setShouldReload(!shouldReload);
 
-useEffect(() => {
-  const loadProvider = async () => {
-    const provider = await detectEthereumProvider();
+  useEffect(() => {
+    const loadProvider = async () => {
+      const provider = await detectEthereumProvider({ silent: true });
 
-    if (provider) {
-      const web3 = new Web3(provider);
-      const contract = await loadContract("Faucet", web3);
+      if (provider) {
+        const web3 = new Web3(provider);
+        const contract = await loadContract("Faucet", web3);
+        const accounts = await web3.eth.getAccounts();
+        setAccount(accounts[0]);
 
-      const accounts = await web3.eth.getAccounts();
-      setAccount(accounts[0]);
-
-      provider.on("accountsChanged", (accounts) => {
-        setAccount(accounts[0] || null);
-      });
-
-      setWeb3Api({ web3, provider, contract });
-    } else {
-      console.error("Please install MetaMask.");
-    }
-  };
-  loadProvider();
-}, []);
+        provider.on("accountsChanged", (accounts) => {
+          setAccount(accounts[0] || null);
+        });
+        provider.on("chainChanged", () => {
+          window.location.reload();
+        });
+        setWeb3Api({ web3, provider, contract, isProviderLoaded: true });
+      } else {
+        setWeb3Api((web3Api) => ({
+          ...web3Api,
+          isProviderLoaded: true,
+        }));
+        console.error("Please install MetaMask.");
+      }
+    };
+    loadProvider();
+  }, []);
 
   useEffect(() => {
     const loadBalance = async () => {
@@ -73,47 +80,78 @@ useEffect(() => {
     reloadEffect();
   };
 
-  // useEffect(() => {
-  //   const getAccount = async () => {
-  //     const accounts = await web3Api.web3.eth.getAccounts();
-  //     setAccount(accounts[0]);
-  //   };
-  //   web3Api.web3 && getAccount();
-  // }, [web3Api.web3]);
+  useEffect(() => {
+    const getAccount = async () => {
+      const accounts = await web3Api.web3.eth.getAccounts();
+      setAccount(accounts[0]);
+    };
+    web3Api.web3 && getAccount();
+  }, [web3Api.web3]);
 
   return (
     <>
       <div className="faucet-wrapper">
         <div className="faucet">
-          <div className="is-flex is-align-items-center">
-            <span>
-              <strong className="mr-2">Account:</strong>
-            </span>
+          {" "}
+          {web3Api.isProviderLoaded ? (
+            <div className="is-flex is-align-items-center mb-3">
+              <span>
+                <strong className="mr-2">Account:</strong>
+              </span>
 
-            {account ? (
-              <div>{account}</div>
-            ) : (
-              <button
-                className="button is-info"
-                onClick={async () => {
-                  const accounts = await web3Api.provider.request({
-                    method: "eth_requestAccounts",
-                  });
-                  setAccount(accounts[0]);
-                }}
-              >
-                Connect Wallet
-              </button>
-            )}
-          </div>
-
+              {account ? (
+                <div>{account}</div>
+              ) : !web3Api.provider ? (
+                <div className="notification is-warning is-size-7 is-rounded">
+                  Wallet Not Detected!{" "}
+                  <a
+                    className="is-block"
+                    target="_blank"
+                    rel="noreferrer"
+                    href="https://docs.metamask.io"
+                  >
+                    Install MetaMask
+                  </a>
+                </div>
+              ) : (
+                <button
+                  className="button is-info"
+                  onClick={async () => {
+                    if (!web3Api.provider) {
+                      alert("MetaMask provider not available.");
+                      return;
+                    }
+                    const accounts = await web3Api.provider.request({
+                      method: "eth_requestAccounts",
+                    });
+                    setAccount(accounts[0]);
+                  }}
+                >
+                  Connect Wallet
+                </button>
+              )}
+            </div>
+          ) : (
+            <span>Looking for Web3...</span>
+          )}
           <div className="balance-view is-size-2 mb-4">
-            Current Balance: <strong>{balance}</strong> ETH
+            Current Balance: <strong>{balance || "0"}</strong> ETH
           </div>
-          <button onClick={addFunds} className="button is-primary is-link mr-2">
+          {!canConnectToContract && (
+            <i className="is-block">Connect To Ganache</i>
+          )}
+          <button
+            disabled={!canConnectToContract}
+            onClick={addFunds}
+            className="button is-primary is-link mr-2"
+          >
             Donate 1 ETH
           </button>
-          <button onClick={withdrawFunds} className="button is-secondary">
+          <button
+            disabled={!canConnectToContract}
+            onClick={withdrawFunds}
+            className="button is-secondary"
+          >
             Withdraw
           </button>
         </div>
