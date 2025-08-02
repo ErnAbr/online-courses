@@ -1,0 +1,11 @@
+@import "tailwindcss";
+
+@layer utilities {
+  .max-w-8xl {
+    max-width: 1920px;
+  }
+}
+
+.fit {
+  min-height: calc(100vh - 88px);
+}
