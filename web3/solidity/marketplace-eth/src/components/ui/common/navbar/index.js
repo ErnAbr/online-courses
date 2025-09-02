@@ -5,12 +5,10 @@ import { useAccount } from "@components/web3/hooks/useAccount";
 
 export default function Footer() {
   const { connect, isLoading, isWeb3Loaded } = useWeb3();
-
   const { account } = useAccount();
 
   return (
     <section>
-      {account}
       <div className="relative pt-6 px-4 sm:px-6 lg:px-8">
         <nav className="relative" aria-label="Global">
           <div className="flex justify-between items-center">
@@ -44,9 +42,18 @@ export default function Footer() {
               {isLoading ? (
                 <Button disabled={true}>Loading...</Button>
               ) : isWeb3Loaded ? (
-                <Button onClick={connect}>Connect Wallet</Button>
+                account.data ? (
+                  <Button className="cursor-default" hoverable={false}>
+                    Hi There
+                  </Button>
+                ) : (
+                  <Button className="hover:cursor-pointer" onClick={connect}>
+                    Connect Wallet
+                  </Button>
+                )
               ) : (
                 <Button
+                  className="hover:cursor-pointer"
                   onClick={() =>
                     window.open("https://metamask.io/download", "_blank")
                   }
@@ -58,6 +65,13 @@ export default function Footer() {
           </div>
         </nav>
       </div>
+      {account.data && (
+        <div className="flex justify-end pt-1 sm:px-6 lg:px-8">
+          <div className="text-white bg-indigo-600 rounded-md p-2">
+            {account.data}
+          </div>{" "}
+        </div>
+      )}
     </section>
   );
 }
