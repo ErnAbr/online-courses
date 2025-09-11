@@ -1,38 +1,7 @@
-import Image from "next/image";
-import Link from "next/link";
-
-export default function List({ courses }) {
+export default function List({ courses, children }) {
   return (
     <section className="grid md:grid-cols-1 lg:grid-cols-2 gap-4 mb-5">
-      {courses.map((course) => (
-        <div
-          key={course.id}
-          className="bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl flex flex-col sm:flex-row"
-        >
-          <div className="w-full sm:w-[200px] h-[230px] relative shrink-0">
-            <Image
-              src={course.coverImage}
-              alt={course.title}
-              fill
-              className="object-cover"
-              sizes="(max-width: 768px) 100vw, 50vw"
-            />
-          </div>
-
-          <div className="p-6 flex flex-col justify-center">
-            <div className="uppercase tracking-wide text-sm text-indigo-500 font-semibold">
-              {course.type}
-            </div>
-            <Link
-              href={`/courses/${course.slug}`}
-              className="block mt-1 text-lg leading-tight font-medium text-black hover:underline"
-            >
-              {course.title}
-            </Link>
-            <p className="mt-2 text-gray-500">{course.description}</p>
-          </div>
-        </div>
-      ))}
+      {courses.map((course) => children(course))}
     </section>
   );
 }

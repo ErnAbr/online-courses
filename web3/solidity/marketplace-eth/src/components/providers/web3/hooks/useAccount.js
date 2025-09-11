@@ -20,11 +20,9 @@ export const handler = (web3, provider) => () => {
   }, [provider]);
 
   return {
-    account: {
-      data,
-      isAdming: (data && adminAddresses[web3.utils.keccak256(data)]) ?? false,
-      mutate,
-      ...rest,
-    },
+    data,
+    isAdming: (data && adminAddresses[web3.utils.keccak256(data)]) ?? false,
+    mutate,
+    ...rest,
   };
 };
