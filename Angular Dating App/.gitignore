@@ -2,3 +2,6 @@ StudentAssets
 
 API/bin
 API/obj
+
+API/appsettings.json
+API/dating.db
